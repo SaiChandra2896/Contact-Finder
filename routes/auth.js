@@ -6,10 +6,18 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+const auth = require('../middleware/auth');
 
 //get logged in user pvt route
-router.get('/', (req, res) => {
-    res.send('get logged in user');
+router.get('/', auth, async (req, res) => {
+    try {
+        //get user from DB and exclude password using .select('-password');
+        const user = await User.findById(req.user.id).select('-password');
+        res.json(user);
+    } catch (err) {
+        console.log(err.message);
+        res.send(500).send('Server error');
+    }
 });
 
 //Authenticate user and get token
