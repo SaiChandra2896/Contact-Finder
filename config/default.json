@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://sai:12345@contactkeeper-vsmxs.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://sai:12345@contactkeeper-vsmxs.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "myjsonwebtoken"
 }
