@@ -40,4 +40,32 @@ router.post('/', [auth, [
     }
 });
 
+router.put('/:id', auth, async (req, res) => {
+
+    const { name, email, phone, type } = req.body;
+
+    //Build contact object
+    const contactFeilds = {};
+    if (name) contactFeilds.name = name;
+    if (email) contactFeilds.email = email;
+    if (phone) contactFeilds.phone = phone;
+    if (type) contactFeilds.type = type;
+
+    try {
+        let contact = await Contact.findById(req.params.id);
+        if (!contact) return res.status(404).json({ msg: 'Contact not found' });
+
+        //make sure user owns contact
+        if (contact.user.toString() !== req.user.id) return res.status(401).json({ msg: 'Not authorized' });
+
+        //update
+        contact = await Contact.findByIdAndUpdate(req.params.id, { $set: contactFeilds }, { new: true });
+
+        res.json(contact);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
