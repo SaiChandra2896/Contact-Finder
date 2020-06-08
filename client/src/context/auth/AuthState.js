@@ -38,7 +38,7 @@ const AuthState = props => {
             //console.log(err.response.data.errors[0].msg)
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response.data.msg
+                payload: err.response.data.errors[0].msg
             })
         }
     }
@@ -47,7 +47,11 @@ const AuthState = props => {
     //Logout
 
     //Clear Errors
-
+    const clearErrors = () => {
+        dispatch({
+            type: CLEAR_ERRORS
+        })
+    }
 
 
     return (
@@ -57,7 +61,7 @@ const AuthState = props => {
             loading: state.loading,
             user: state.user,
             error: state.error,
-            register
+            register, clearErrors
         }}>
             {props.children}
         </AuthContext.Provider>

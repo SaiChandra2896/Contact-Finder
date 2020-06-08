@@ -20,9 +20,9 @@ router.post('/', [
     //console.log(email);
     try {
         let user = await User.findOne({ email });
-        console.log(user);
+        //console.log(user);
         if (user) {
-            console.log('qwerty')
+            //console.log('qwerty')
             return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
         }
 
