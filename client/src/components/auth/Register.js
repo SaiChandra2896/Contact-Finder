@@ -26,6 +26,7 @@ const Register = () => {
             setAlert('Passwords do not match', 'danger');
         }
         else {
+            console.log(name, email, password);
             register({
                 name, email, password
             });

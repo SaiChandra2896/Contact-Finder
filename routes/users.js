@@ -15,13 +15,19 @@ router.post('/', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-
+    //console.log(req.body);
     const { name, email, password } = req.body;
+    //console.log(email);
     try {
         let user = await User.findOne({ email });
-        if (user) return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        console.log(user);
+        if (user) {
+            console.log('qwerty')
+            return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        }
 
         user = new User({ name, email, password });
+        //console.log(user, 'user')
 
         //password hashing
         const salt = await bcrypt.genSalt(10);

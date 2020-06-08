@@ -19,11 +19,13 @@ const AuthState = props => {
 
     //Register User
     const register = async (formData) => {
+        console.log(formData, 'from action')
+
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         try {
             const res = await axios.post('/api/users', formData, config);
@@ -33,10 +35,10 @@ const AuthState = props => {
                 payload: res.data
             })
         } catch (err) {
-            console.log(err.response.data.errors[0].msg)
+            //console.log(err.response.data.errors[0].msg)
             dispatch({
                 type: REGISTER_FAIL,
-                payload: err.response.data.errors[0].msg
+                payload: err.response.data.msg
             })
         }
     }
