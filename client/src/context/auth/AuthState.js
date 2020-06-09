@@ -80,14 +80,20 @@ const AuthState = props => {
             })
             loadUser();
         } catch (err) {
+            console.log(err.response.data.msg)
             dispatch({
                 type: LOGIN_FAIL,
-                payload: err.response.data.errors[0].msg
+                payload: err.response.data.msg
             })
         }
     }
 
     //Logout
+    const logout = () => {
+        dispatch({
+            type: LOGOUT
+        });
+    }
 
     //Clear Errors
     const clearErrors = () => {
@@ -104,7 +110,7 @@ const AuthState = props => {
             loading: state.loading,
             user: state.user,
             error: state.error,
-            register, clearErrors, loadUser
+            register, clearErrors, loadUser, login, logout
         }}>
             {props.children}
         </AuthContext.Provider>
