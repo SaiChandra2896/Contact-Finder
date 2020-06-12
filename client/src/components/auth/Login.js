@@ -11,7 +11,8 @@ const Login = (props) => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            props.history.push('/')
+            console.log(isAuthenticated, 'qwer')
+            props.history.push('/');
         }
         if (error === 'Invalid Credentials') {
             setAlert(error, 'danger');
@@ -36,7 +37,7 @@ const Login = (props) => {
             })
         }
     }
-    const { email, password } = user
+    const { email, password } = user;
     return (
         <div className='form-container'>
             <h1>Account <span className='text-primary'>Login</span></h1>
